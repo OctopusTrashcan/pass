@@ -1,0 +1,85 @@
+<html> 
+<head> 
+ <style>
+.picture{width: 50px;height:0px ;position: absolute;top:200px;left: 400px;background-color: red; }
+.bigpicture{width: 500px;height:1000px ;position: absolute;top:200px;left:100px;background-color: green; }
+.pass{width:500px;height: 100px;background-color:yellow;position: absolute;left:100px;top:1200px;  }
+form{display: none;}
+ </style> 
+
+<script>
+var countdownnumber=5;
+var countdownid,x;
+var play=0
+var i = 0
+function initial(){
+  i=0
+  countdownnumber=5
+  play=1
+  x=document.getElementById("countdown");
+  x.innerHTML=countdownnumber;
+  countdownnumber--;
+  countdownid=window.setInterval(countdownfunc,1000);
+}
+function countdownfunc(){ 
+  x.innerHTML=countdownnumber;
+  countdownnumber--;
+  if (countdownnumber==0){
+    alert("總共按了"+i+"次,開始下個階段");   
+    clearInterval(countdownid);
+  } 
+}
+  function count(){
+   if(play==1)
+   if(countdownnumber>0){
+    i++; document.getElementById('soul').style.height=10*i+"px"
+}  
+  }
+ function eval(event) {
+var elem = document.getElementById("soul");
+var x = elem.offsetLeft || 0;
+var y = elem.offsetTop || 0;
+var key = event.which || event.keyCode;
+var a = document.getElementById("answer").value;
+var score=2*i;
+if (y<=1200-10*i&&y>=200&&550>=x&&100<=x) {
+  if(930-10*i>=y&&y>900-10*i){alert("會不會?");
+  document.getElementById('question').style.display='block';}
+switch(key){
+case 38:
+elem.style.top = (y-30) + 'px';
+break;
+case 40:
+elem.style.top = (y+30) + 'px';
+break;
+case 37:
+elem.style.left = (x-30) + 'px';
+break;
+case 39:
+elem.style.left = (x+30) + 'px';
+break;
+}}
+else if(a=="蕭志隆"){score=score+60;alert("任務成功，共"+score+"分");location.reload()}
+else{alert("任務失敗，共"+(-score)+"分");location.reload();}
+}
+</script>
+</head> 
+<body onkeydown="eval(event)"> 
+ <h1>快數Pass遊戲</h1>
+ <h2>遊戲方法:請在五秒內連續點擊pass鍵，五秒後會出現下一個指示
+
+<p>倒數時間:</p>
+<div id="countdown"> </div> 
+<button onclick="initial()">開始</button>
+<input type="submit" name="regsubmit" value="pass" onclick="count();">
+<div class="bigpicture"></div>
+<div class="picture" id="soul"></div>
+  <div class="picture" id="soul"><p style="position:absolute;color:green;">請以上下左右移動這塊矩形，往下移動到終點(碰到綠色邊框失敗)</p>
+   </div>
+   <div class="pass"><p style="color:white;font-size:35px;text-align: center; ">終點</p>
+<form id=question>
+蕭氏集團的創辦人是誰?:(未作答此題總分為負) <input type="text" id="answer" >
+</form>
+</div>
+</body> 
+</html>
